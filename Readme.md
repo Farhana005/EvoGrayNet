@@ -24,12 +24,5 @@ An **evolutionary architecture search** optimizes the model via crossover/mutati
 ✅ **Robustness**: Handles variability in polyp appearance, size, and lighting.  
 ✅ **Evolutionary NAS**: Automated architecture search for optimal performance.  
 
----
-
-## 📂 Coming Soon  
-🔜 **Code Release**: Full PyTorch/TensorFlow implementation.  
-🔜 **Pretrained Models**: For immediate inference on colonoscopy data.  
-🔜 **Tutorials**: Training, evaluation, and deployment guides.  
-
 
 Stay tuned! ⏳  
