@@ -1,5 +1,5 @@
 
-🚀 **EvoGrayNet**: Evo-GrayNet: Colon Polyp Detection and Segmentation using Evolutionary Network Architecture Search  
+🚀 **EvoGrayNet**: Colon Polyp Detection and Segmentation using Evolutionary Network Architecture Search  
 
 **🚀 Advanced detection and segmentation of colon polyps in endoscopy images**  
 
