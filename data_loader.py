@@ -6,6 +6,7 @@ from skimage.io import imread
 from tqdm import tqdm
 import os
 import zipfile
+from skimage.filters import threshold_otsu
 
 
 # folder_path = r"E:\polyplocalizationdataset\PolypLocalizationDataset\PolypLocalizationDataset\CVC-ClinicDB\"
@@ -65,10 +66,9 @@ def load_data(img_height, img_width, images_to_be_loaded, dataset):
             pillow_mask = pillow_mask.resize((img_height, img_width), resample=Image.LANCZOS)
             mask_ = np.array(pillow_mask)
 
-            for i in range(img_height):
-                for j in range(img_width):
-                    if (mask_[i, j] >= 127).any():
-                        mask[i, j] = 1
+	    # Apply Otsu's adaptive threshold
+	    threshold_value = threshold_otsu(mask_)
+	    binary_mask = (mask_ >= threshold_value).astype(np.uint8)
 
             Y_train[n] = mask
 
