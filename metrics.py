@@ -83,6 +83,12 @@ def tversky_loss(ground_truth, predictions, alpha=0.7, smooth=1e-6):
 
     return 1 - tversky
 
+def dice_coef_from_logits(y_true, logits, eps=1e-7):
+    probs = tf.sigmoid(logits)
+    y_true = tf.cast(y_true, probs.dtype)
+    inter = tf.reduce_sum(probs * y_true)
+    denom = tf.reduce_sum(probs) + tf.reduce_sum(y_true)
+    return (2.0 * inter + eps) / (denom + eps)
 # import numpy as np
 search_space = {
     # Gray Module
