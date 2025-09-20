@@ -5,6 +5,19 @@ from tensorflow.keras import layers, Model
 from tensorflow.keras.layers import Activation, Add
 
 
+def build_final_head(all_conv, final_activation):
+    if final_activation == "sigmoid":
+        return Conv2D(1, 1, activation="sigmoid")(all_conv)
+
+    elif final_activation == "softmax":
+        # for binary segmentation: 2 channels (background, polyp)
+        return Conv2D(2, 1, activation="softmax")(all_conv)
+
+    else:
+        # for relu/tanh → fallback to logits
+        return Conv2D(1, 1, activation=None)(all_conv)
+
+
 def dilated_feature_extractor(inputs, rates, dropout_rate):   #dilated_feature_extractor
     filters = inputs.shape[-1]
 
@@ -149,8 +162,8 @@ def build_model(random_architecture, input_shape=(256, 256, 3)):
     # Final convolution and output layer
     all_conv = gray_module(up2, filters=gray_filters, dropout_rate=dropout_rate)
     all_conv = dilated_feature_extractor(all_conv, rates=dilated_feature_extractor_rates, dropout_rate=dropout_rate)
-    final_conv = Conv2D(1, 1, activation=final_activation)(all_conv)
-
+    final_conv = build_final_head(all_conv, final_activation)
+    
     model = tf.keras.Model(inputs=inputs, outputs=final_conv)
     return model
 
